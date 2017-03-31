@@ -11,6 +11,12 @@
 |
 */
 
+// landing page
 Route::get('/', function () {
     return view('pages.landing');
 });
+
+// authentication functionality
+Route::get('login', 'AuthController@getLogin');
+Route::post('login', 'AuthController@postLogin');
+Route::get('logout', 'AuthController@getLogout');

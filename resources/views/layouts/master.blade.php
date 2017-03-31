@@ -17,13 +17,13 @@
     <body>
         <div class="container">
             <div class="row">
-                <div class="col-sm-10 col-sm-offset-1">
+                <div class="col-sm-12">
                     @include('layouts.partials.header')
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-sm-10 col-sm-offset-1">
+                <div class="col-sm-12">
                     @yield('content')
 
                     {{-- MODALS --}}
@@ -32,7 +32,7 @@
             </div>
 
             <div class="row">
-                <div class="col-sm-10 col-sm-offset-1">
+                <div class="col-sm-12">
                     @include('layouts.partials.footer')
                 </div>
             </div>
