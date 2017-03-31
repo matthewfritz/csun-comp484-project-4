@@ -7,6 +7,8 @@ Configure the values in your `.env` file to match your database environment.
 
 Then, execute the following commands:
 
-`composer install`
-`bower install`
-`php artisan migrate --seed`
+```composer install```
+
+```bower install```
+
+```php artisan migrate --seed```
