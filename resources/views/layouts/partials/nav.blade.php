@@ -27,7 +27,7 @@
             <li class="{{ setActive('profile/reviews') }}">
               <a href="{{ url('profile/reviews') }}"><i class="fa fa-comments"></i> My Reviews</a>
             </li>
-            <li class="{{ setActive('profile') }}">
+            <li class="{{ setActive(['profile', 'profile/changepassword']) }}">
               <a href="{{ url('profile') }}"><i class="fa fa-user"></i> My Profile</a>
             </li>
           @endif

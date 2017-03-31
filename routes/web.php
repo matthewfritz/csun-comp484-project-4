@@ -33,6 +33,12 @@ Route::group(['middleware' => 'guest'], function() {
 
 // for these routes you need to be authenticated
 Route::group(['middleware' => 'auth'], function() {
+	Route::get('profile', 'UserController@getProfile');
+
+	// password changes
+	Route::get('profile/changepassword', 'UserController@getChangePassword');
+	Route::post('profile/changepassword', 'UserController@postChangePassword');
+
 	// logout functionality
 	Route::get('logout', 'AuthController@getLogout');
 });

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests\CreateUserRequest;
+use App\Http\Requests\ChangePasswordRequest;
 
 use App\Models\Role;
 use App\Models\User;
@@ -32,5 +33,21 @@ class UserController extends Controller
     	Auth::login($u);
 
     	return redirect('/')->with('success', "{$u->display_name} has been registered successfully!");
+    }
+
+    public function getChangePassword() {
+    	return view('pages.user.changepassword');
+    }
+
+    public function postChangePassword(ChangePasswordRequest $request) {
+    	Auth::user()->password = bcrypt($request->input('password'));
+    	Auth::user()->save();
+    	Auth::user()->touch();
+
+    	return redirect('profile')->with('success', "You successfully changed your password!");
+    }
+
+    public function getProfile() {
+    	return view('pages.user.profile');
     }
 }
