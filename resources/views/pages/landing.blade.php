@@ -1,10 +1,7 @@
 @extends('layouts.master')
 
-@section('title', 'Page Title | Product Name')
-@section('description')
-  {{-- Add Description --}}
-@endsection
+@section('title', 'Home')
 
 @section('content')
-  {{-- Add Content --}}
+  <p>Landing Page</p>
 @endsection
