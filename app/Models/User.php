@@ -28,6 +28,15 @@ class User extends Authenticatable
     ];
 
     /**
+     * Returns all of the reviews written by this user.
+     *
+     * @return Builder
+     */
+    public function reviews() {
+        return $this->hasMany(Review::class, 'user_id')->orderBy('id', 'DESC');
+    }
+
+    /**
      * Returns all roles for this user.
      *
      * @return Builder

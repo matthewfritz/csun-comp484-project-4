@@ -50,4 +50,9 @@ class UserController extends Controller
     public function getProfile() {
     	return view('pages.user.profile');
     }
+
+    public function getMyReviews() {
+        Auth::user()->load('reviews.restaurant');
+        return view('pages.user.myreviews');
+    }
 }
