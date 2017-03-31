@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests\CreateUserRequest;
+
+use App\Models\Role;
 use App\Models\User;
 
 use Auth;
@@ -22,6 +24,9 @@ class UserController extends Controller
     		'password' => bcrypt($request->input('password')),
     		'display_name' => $request->input('display_name')
     	]);
+
+    	// give the newly-registered user a reviewer role
+    	$u->roles()->attach('reviewer');
 
     	// authenticate the new user automatically
     	Auth::login($u);

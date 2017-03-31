@@ -17,18 +17,20 @@
         <li class="{{ setActive('/') }}">
           <a href="{{ url('/') }}"><i class="fa fa-home"></i> Home</a>
         </li>
-        <li class="{{ setActive('restaurants/*') }}">
+        <li class="{{ setActive(['restaurants', 'restaurants/*']) }}">
           <a href="{{ url('restaurants') }}"><i class="fa fa-cutlery"></i> Restaurants</a>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         @if(Auth::check())
-          <li class="{{ setActive('my-reviews') }}">
-            <a href="{{ url('profile/reviews') }}"><i class="fa fa-comments"></i> My Reviews</a>
-          </li>
-          <li class="{{ setActive('profile') }}">
-            <a href="{{ url('profile') }}"><i class="fa fa-user"></i> My Profile</a>
-          </li>
+          @if(Auth::user()->isReviewer())
+            <li class="{{ setActive('profile/reviews') }}">
+              <a href="{{ url('profile/reviews') }}"><i class="fa fa-comments"></i> My Reviews</a>
+            </li>
+            <li class="{{ setActive('profile') }}">
+              <a href="{{ url('profile') }}"><i class="fa fa-user"></i> My Profile</a>
+            </li>
+          @endif
           <li>
             <a href="{{ url('logout') }}"><i class="fa fa-sign-out"></i> Logout</a>
           </li>
