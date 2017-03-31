@@ -34,7 +34,7 @@
 
 			<h2>Registration Date</h2>
 
-			<p>{{ Auth::user()->created_at }}</p>
+			<p>{{ Auth::user()->formatted_created_at }}</p>
 
 		</div>
 

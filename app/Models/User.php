@@ -82,4 +82,8 @@ class User extends Authenticatable
     public function isReviewer() {
         return $this->hasRole('reviewer');
     }
+
+    public function getFormattedCreatedAtAttribute() {
+        return $this->created_at->format("F d, Y g:i A");
+    }
 }
