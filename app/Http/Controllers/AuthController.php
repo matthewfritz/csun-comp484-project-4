@@ -23,7 +23,7 @@ class AuthController extends Controller
 
     	if(Auth::attempt($creds, false)) {
     		return redirect()->intended('/')
-    			->with('success', 'You have logged-in successfully!');
+    			->with('success', Auth::user()->display_name . " has logged-in successfully!");
     	}
 
     	return redirect()->back()->withErrors([
@@ -32,7 +32,8 @@ class AuthController extends Controller
     }
 
     public function getLogout() {
+        $name = Auth::user()->display_name;
     	Auth::logout();
-    	return redirect('/')->with('success', 'You have logged-out successfully!');
+    	return redirect('/')->with('success', "{$name} has logged-out successfully!");
     }
 }
