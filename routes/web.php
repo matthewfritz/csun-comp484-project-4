@@ -33,6 +33,7 @@ Route::group(['middleware' => 'guest'], function() {
 
 // anybody can view the set of restaurants
 Route::get('restaurants', 'RestaurantController@index');
+Route::get('restaurants/{id}', 'RestaurantController@show');
 
 // for these routes you need to be authenticated
 Route::group(['middleware' => 'auth'], function() {

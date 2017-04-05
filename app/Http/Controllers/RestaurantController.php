@@ -34,6 +34,22 @@ class RestaurantController extends Controller
 		return view('pages.restaurants.index', compact('restaurants'));
 	}
 
+	public function show($id) {
+		$restaurant = Restaurant::with('schedules', 'items', 'reviews.user')
+			->findOrFail($id);
+
+		// calculate the average of the ratings if we have ratings
+		$average = 0;
+		if(!empty($restaurant->reviews)) {
+			foreach($restaurant->reviews as $review) {
+				$average += $review->rating;
+			}
+			$average /= count($restaurant->reviews);
+		}
+
+		return view('pages.restaurants.show', compact('restaurant', 'average'));
+	}
+
 	public function create() {
 		return view('pages.restaurants.create');
 	}

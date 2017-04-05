@@ -17,4 +17,16 @@ class Restaurant extends Model
 	public function scopeActive($query) {
 		return $query->where('active', 1);
 	}
+
+	public function schedules() {
+		return $this->hasMany(Schedule::class);
+	}
+
+	public function items() {
+		return $this->hasMany(MenuItem::class);
+	}
+
+	public function reviews() {
+		return $this->hasMany(Review::class)->orderBy('id', 'DESC');
+	}
 }
