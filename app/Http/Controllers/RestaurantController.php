@@ -46,7 +46,7 @@ class RestaurantController extends Controller
 
 		// calculate the average of the ratings if we have ratings
 		$average = 0;
-		if(!empty($restaurant->reviews)) {
+		if(count($restaurant->reviews) > 0) {
 			foreach($restaurant->reviews as $review) {
 				$average += $review->rating;
 			}
@@ -123,15 +123,39 @@ class RestaurantController extends Controller
 	}
 
 	public function postAddMenuItem(CreateMenuItemRequest $request, $id) {
-		$restaurant = Restaurant::findOrFail($id);
+		$r = Restaurant::findOrFail($id);
+		$m = MenuItem::create([
+			'restaurant_id' => $id,
+			'item_name' => $request->input('item_name'),
+			'item_description' => $request->input('item_description'),
+			'item_price' => $request->input('item_price'),
+		]);
+
+		return redirect('restaurants/' . $r->id)->with('success', "Menu item {$m->item_name} has been added!");
 	}
 
 	public function getAddReview($id) {
 		$restaurant = Restaurant::findOrFail($id);
-		return view('pages.restaurants.reviews.add', compact('restaurant'));
+		$ratings = [
+			'1' => 'One Star',
+			'2' => 'Two Stars',
+			'3' => 'Three Stars',
+			'4' => 'Four Stars',
+			'5' => 'Five Stars',
+		];
+		return view('pages.restaurants.reviews.add', compact('restaurant', 'ratings'));
 	}
 
 	public function postAddReview(CreateReviewRequest $request, $id) {
-		$restaurant = Restaurant::findOrFail($id);
+		$r = Restaurant::findOrFail($id);
+		$rr = Review::create([
+			'restaurant_id' => $id,
+			'user_id' => Auth::id(),
+			'rating' => $request->input('rating'),
+			'tagline' => $request->input('tagline'),
+			'body' => $request->input('body'),
+		]);
+
+		return redirect('restaurants/' . $r->id)->with('success', "Your review of {$rr->rating} star(s) has been added!");
 	}
 }
