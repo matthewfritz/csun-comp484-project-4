@@ -42,4 +42,13 @@ Route::group(['middleware' => 'auth'], function() {
 
 	// logout functionality
 	Route::get('logout', 'AuthController@getLogout');
+
+	// for these routes you need to be an administrator
+	Route::group(['middleware' => 'admin'], function() {
+		Route::get('admin', 'AdminController@getAdminPanel');
+
+		Route::get('admin/users', 'AdminController@getUsers');
+		Route::post('admin/users/{id}/promote', 'AdminController@postPromoteUser');
+		Route::post('admin/users/{id}/demote', 'AdminController@postDemoteUser');
+	});
 });

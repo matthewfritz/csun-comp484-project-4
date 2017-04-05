@@ -5,6 +5,9 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+
+use App\Exceptions\PermissionDeniedException;
 
 class Handler extends ExceptionHandler
 {
@@ -20,6 +23,7 @@ class Handler extends ExceptionHandler
         \Illuminate\Database\Eloquent\ModelNotFoundException::class,
         \Illuminate\Session\TokenMismatchException::class,
         \Illuminate\Validation\ValidationException::class,
+        \App\Exceptions\PermissionDeniedException::class,
     ];
 
     /**
@@ -44,6 +48,13 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if($exception instanceof PermissionDeniedException) {
+            return redirect('/')->withErrors(['You are not allowed to access that page.']);
+        }
+        if($exception instanceof ModelNotFoundException) {
+            return redirect()->back()->withErrors(['The specified resource does not exist.']);
+        }
+
         return parent::render($request, $exception);
     }
 

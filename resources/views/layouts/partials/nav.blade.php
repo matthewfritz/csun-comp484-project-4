@@ -30,6 +30,10 @@
             <li class="{{ setActive(['profile', 'profile/changepassword']) }}">
               <a href="{{ url('profile') }}"><i class="fa fa-user"></i> My Profile</a>
             </li>
+          @elseif(Auth::user()->isAdmin())
+            <li class="{{ setActive(['admin', 'admin/*']) }}">
+              <a href="{{ url('admin') }}"><i class="fa fa-dashboard"></i> Admin Panel</a>
+            </li>
           @endif
           <li>
             <a href="{{ url('logout') }}"><i class="fa fa-sign-out"></i> Logout</a>
