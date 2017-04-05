@@ -8,6 +8,9 @@ use App\Models\Restaurant;
 use App\Models\User;
 
 use App\Http\Requests\CreateOrModifyRestaurantRequest;
+use App\Http\Requests\CreateHoursRequest;
+use App\Http\Requests\CreateMenuItemRequest;
+use App\Http\Requests\CreateReviewRequest;
 
 use Auth;
 
@@ -83,5 +86,29 @@ class RestaurantController extends Controller
 		$r->touch();
 
 		return redirect('restaurants/' . $r->id)->with('success', 'Restaurant has been updated successfully!');
+	}
+
+	public function getAddHours($id) {
+
+	}
+
+	public function postAddHours(CreateHoursRequest $request, $id) {
+
+	}
+
+	public function getAddMenuItem($id) {
+
+	}
+
+	public function postAddMenuItem(CreateMenuItemRequest $request, $id) {
+
+	}
+
+	public function getAddReview($id) {
+
+	}
+
+	public function postAddReview(CreateReviewRequest $request, $id) {
+
 	}
 }
