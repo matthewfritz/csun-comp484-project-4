@@ -25,6 +25,10 @@ class AdminController extends Controller
     }
 
     public function postPromoteUser($id) {
+        if($id == Auth::id()) {
+            return redirect()->back()->withErrors(['You cannot promote yourself']);
+        }
+
         $u = User::with('roles')
             ->where('id', $id)
             ->firstOrFail();
@@ -37,6 +41,10 @@ class AdminController extends Controller
     }
 
     public function postDemoteUser($id) {
+        if($id == Auth::id()) {
+            return redirect()->back()->withErrors(['You cannot demote yourself']);
+        }
+
         $u = User::with('roles')
             ->where('id', $id)
             ->firstOrFail();
