@@ -65,4 +65,23 @@ class RestaurantController extends Controller
 
 		return redirect()->back()->with('success', "{$r->display_name} has been added successfully!");
 	}
+
+	public function edit($id) {
+		$restaurant = Restaurant::findOrFail($id);
+		return view('pages.restaurants.edit', compact('restaurant'));
+	}
+
+	public function update(CreateOrModifyRestaurantRequest $request, $id) {
+		$r = Restaurant::findOrFail($id);
+		$r->update([
+			'display_name' => $request->input('display_name'),
+			'street' => $request->input('street'),
+			'city' => $request->input('city'),
+			'state' => $request->input('state'),
+			'website' => $request->input('website'),
+		]);
+		$r->touch();
+
+		return redirect('restaurants/' . $r->id)->with('success', 'Restaurant has been updated successfully!');
+	}
 }

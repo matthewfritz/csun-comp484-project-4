@@ -47,6 +47,10 @@ Route::group(['middleware' => 'auth'], function() {
 	// logout functionality
 	Route::get('logout', 'AuthController@getLogout');
 
+	// review functionality
+	Route::get('restaurants/{id}/reviews/add', 'RestaurantController@getAddReview');
+	Route::post('restaurants/{id}/reviews', 'RestaurantController@postAddReview');
+
 	// for these routes you need to be an administrator
 	Route::group(['middleware' => 'admin'], function() {
 		Route::get('admin', 'AdminController@getAdminPanel');
@@ -57,5 +61,14 @@ Route::group(['middleware' => 'auth'], function() {
 
 		Route::get('admin/restaurants/create', 'RestaurantController@create');
 		Route::post('admin/restaurants', 'RestaurantController@store');
+
+		Route::get('restaurants/{id}/edit', 'RestaurantController@edit');
+		Route::put('restaurants/{id}', 'RestaurantController@update');
+
+		Route::get('restaurants/{id}/hours/add', 'RestaurantController@getAddHours');
+		Route::post('restaurants/{id}/hours', 'RestaurantController@postAddHours');
+
+		Route::get('restaurants/{id}/menu/add', 'RestaurantController@getAddMenuItem');
+		Route::post('restaurants/{id}/menu', 'RestaurantController@postAddMenuItem');
 	});
 });

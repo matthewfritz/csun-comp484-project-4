@@ -10,6 +10,30 @@
 		</div>
 	</div>
 
+	@if(Auth::check())
+		<div class="row">
+			<div class="col-sm-10 col-sm-offset-1">
+				@if(Auth::user()->isAdmin())
+					<div class="pull-right">
+					<a href="{{ url('restaurants/' . $restaurant->id . '/edit') }}" class="btn btn-primary">
+						<i class="fa fa-pencil"></i> Edit Restaurant
+					</a>
+					<a href="{{ url('restaurants/' . $restaurant->id . '/hours/add') }}" class="btn btn-primary">
+						<i class="fa fa-plus"></i> Add Operating Hours
+					</a>
+					<a href="{{ url('restaurants/' . $restaurant->id . '/menu/add') }}" class="btn btn-primary">
+						<i class="fa fa-plus"></i> Add Menu Item
+					</a>
+					</div>
+				@else
+					<a href="{{ url('restaurants/' . $restaurant->id . '/reviews/add') }}" class="btn btn-primary">
+						<i class="fa fa-plus"></i> Add Review
+					</a>
+				@endif
+			</div>
+		</div>
+	@endif
+
 	@if(!empty($restaurant->reviews))
 		<div class="row">
 			<div class="col-sm-10 col-sm-offset-1">
@@ -23,6 +47,29 @@
 			</div>
 		</div>
 	@endif
+
+	<div class="row">
+		<div class="col-sm-10 col-sm-offset-1">
+			<h4>Restaurant Information</h4>
+
+			<h5>Address</h5>
+
+			<address>
+				{{ $restaurant->street }}<br />
+				{{ $restaurant->city }}, {{ $restaurant->state }}<br />
+			</address>
+
+			@if(!empty($restaurant->website))
+				<h5>Website</h5>
+
+				<a href="{{ $restaurant->website }}" target="_blank">
+					{{ $restaurant->website }}
+				</a><br />
+			@endif
+
+			<hr />
+		</div>
+	</div>
 
 	<div class="row">
 		<div class="col-sm-10 col-sm-offset-1">
