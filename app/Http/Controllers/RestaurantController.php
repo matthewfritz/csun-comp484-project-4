@@ -14,8 +14,22 @@ use Auth;
 class RestaurantController extends Controller
 {
 	public function index() {
-		$restaurants = Restaurant::orderBy('display_name', 'ASC')
-			->get();
+		if(Auth::check()) {
+			if(Auth::user()->isAdmin()) {
+				// only admins should be able to see ALL restaurants
+				$query = Restaurant::orderBy('display_name', 'ASC');
+			}
+			else
+			{
+				$query = Restaurant::active()->orderBy('display_name', 'ASC');
+			}
+		}
+		else
+		{
+			$query = Restaurant::active()->orderBy('display_name', 'ASC');
+		}
+
+		$restaurants = $query->get();
 
 		return view('pages.restaurants.index', compact('restaurants'));
 	}

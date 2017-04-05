@@ -13,4 +13,8 @@ class Restaurant extends Model
 		'state',
 		'website',
 	];
+
+	public function scopeActive($query) {
+		return $query->where('active', 1);
+	}
 }

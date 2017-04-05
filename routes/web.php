@@ -31,6 +31,9 @@ Route::group(['middleware' => 'guest'], function() {
 	Route::post('login', 'AuthController@postLogin');
 });
 
+// anybody can view the set of restaurants
+Route::get('restaurants', 'RestaurantController@index');
+
 // for these routes you need to be authenticated
 Route::group(['middleware' => 'auth'], function() {
 	Route::get('profile', 'UserController@getProfile');
