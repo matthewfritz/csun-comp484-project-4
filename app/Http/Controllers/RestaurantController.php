@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\MenuItem;
 use App\Models\Restaurant;
+use App\Models\Review;
+use App\Models\Schedule;
 use App\Models\User;
 
 use App\Http\Requests\CreateOrModifyRestaurantRequest;
@@ -89,26 +92,46 @@ class RestaurantController extends Controller
 	}
 
 	public function getAddHours($id) {
-
+		$restaurant = Restaurant::findOrFail($id);
+		$days = [
+			'Monday' => 'Monday',
+			'Tuesday' => 'Tuesday',
+			'Wednesday' => 'Wednesday',
+			'Thursday' => 'Thursday',
+			'Friday' => 'Friday',
+			'Saturday' => 'Saturday',
+			'Sunday' => 'Sunday',
+		];
+		return view('pages.restaurants.hours.add', compact('restaurant', 'days'));
 	}
 
 	public function postAddHours(CreateHoursRequest $request, $id) {
+		$r = Restaurant::findOrFail($id);
+		$s = Schedule::create([
+			'restaurant_id' => $id,
+			'day' => $request->input('day'),
+			'time_open' => $request->input('time_open'),
+			'time_closed' => $request->input('time_closed'),
+		]);
 
+		return redirect('restaurants/' . $r->id)->with('success', "Schedule for {$s->day} has been added!");
 	}
 
 	public function getAddMenuItem($id) {
-
+		$restaurant = Restaurant::findOrFail($id);
+		return view('pages.restaurants.items.add', compact('restaurant'));
 	}
 
 	public function postAddMenuItem(CreateMenuItemRequest $request, $id) {
-
+		$restaurant = Restaurant::findOrFail($id);
 	}
 
 	public function getAddReview($id) {
-
+		$restaurant = Restaurant::findOrFail($id);
+		return view('pages.restaurants.reviews.add', compact('restaurant'));
 	}
 
 	public function postAddReview(CreateReviewRequest $request, $id) {
-
+		$restaurant = Restaurant::findOrFail($id);
 	}
 }
