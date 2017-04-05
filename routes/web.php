@@ -50,5 +50,8 @@ Route::group(['middleware' => 'auth'], function() {
 		Route::get('admin/users', 'AdminController@getUsers');
 		Route::post('admin/users/{id}/promote', 'AdminController@postPromoteUser');
 		Route::post('admin/users/{id}/demote', 'AdminController@postDemoteUser');
+
+		Route::get('admin/restaurants/create', 'RestaurantController@create');
+		Route::post('admin/restaurants', 'RestaurantController@store');
 	});
 });
