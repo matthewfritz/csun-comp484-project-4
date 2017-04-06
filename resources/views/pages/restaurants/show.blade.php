@@ -34,7 +34,7 @@
 		</div>
 	@endif
 
-	@if(count($restaurant->reviews) > 0))
+	@if(count($restaurant->reviews) > 0)
 		<div class="row">
 			<div class="col-sm-10 col-sm-offset-1">
 				<h4>Average Rating out of {{ count($restaurant->reviews) }} review(s)</h4>
